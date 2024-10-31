@@ -6,6 +6,7 @@ import ResultPage from "./components/ResultPage";
 import Footer from "./components/Footer";
 import LandingPage from "./components/LandingPage";
 import ClientSearch from "./components/ClientSearch";
+import DetailPage from "./components/DetailPage";
 import "./App.css";
 
 function App() {
@@ -19,7 +20,7 @@ function App() {
             <Route path="/form" element={<FormNew />} />
             <Route path="/results" element={<ResultPage />} />
             <Route path="/clients" element={<ClientSearch />} />
-            <Route path="/client/:clientId" element={<div>Client Details Page Placeholder</div>} /> {/* Placeholder */}
+            <Route path="/client/:clientId" element={<DetailPage />} />
           </Routes>
         </main>
         <Footer />
