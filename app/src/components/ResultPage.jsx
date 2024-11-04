@@ -15,22 +15,25 @@ import { handleSaveReport } from "./ReportGenerate";
 const ResultPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-    const { id, formData, probability, interventions } = location.state || {
-    id: "",
-    formData: {},
-    probability: 0,
-    interventions: [],
-  };
+  console.log(location.state);
+    const { id, selectedUser, probability, interventions } = location.state || {
+      id: null,
+      selectedUser: {},
+      probability: 0,
+      interventions: [],
+    };
 
   const handleSaveReportClick = (format) => {
-    handleSaveReport(format, formData, probability, interventions);
+    console.log(selectedUser);
+    handleSaveReport(format, selectedUser, probability, interventions);
   };
 
   const handleBackToForm = () => {
-      if (id === '') navigate('/form', { state: { formData } });
-      else {
-          navigate(`/client/${id}`);
-      }
+    if (id !== undefined && id !== null) {
+      navigate(`/client/${id}`);
+    } else {
+      navigate('/form', { state: { selectedUser } });
+    }
   };
 
   const formatIntervention = (intervention) => {

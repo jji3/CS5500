@@ -82,12 +82,11 @@ function Client() {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:3001/api/work-score', selectedUser);
-      console.log(response);
-      console.log(response.data);
 
       const probability = response.data.baseline;
       const interventions = response.data.interventions;
 
+      console.log(selectedUser);
       navigate("/results", { state: { id, selectedUser, probability, interventions } });
     } catch (error) {
       console.error("Error submitting form:", error);

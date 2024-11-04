@@ -72,18 +72,16 @@ const FormNew = () => {
     e.preventDefault();
     try {
       await handleAdd();
-      // TODO: change url to use an env variable to make it easier to change when deploying in different environments
-      const response = await axios.post(
-        "http://ec2-34-219-155-200.us-west-2.compute.amazonaws.com:8000/clients/predictions",
-        formData
-      );
-      console.log(response);
-      console.log(response.data);
-
+    // TODO: change url to use an env variable to make it easier to change when deploying in different environments
+    //   const response = await axios.post(
+    //     "http://ec2-34-219-155-200.us-west-2.compute.amazonaws.com:8000/clients/predictions",
+    //     formData
+    //   );
+      const response = await axios.post('http://localhost:3001/api/work-score', formData);
       const probability = response.data.baseline;
 
       const interventions = response.data.interventions;
-      navigate("/results", { state: { formData, probability, interventions } });
+      navigate("/results", { state: {formData, probability, interventions } });
     } catch (error) {
       console.error("Error submitting form:", error);
     }
