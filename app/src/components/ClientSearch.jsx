@@ -32,7 +32,7 @@ const handleSearch = async (query) => { // Use 'query' as the parameter name
 
     setClients(response.data);
     setError(null);
-    
+
     console.log("Response data:", response.data); // Log the response data
   } catch (err) {
     setError("Error fetching clients. Please try again.");
@@ -56,8 +56,8 @@ const handleSearch = async (query) => { // Use 'query' as the parameter name
                 <li
                   key={client.id}
                   className="client-item"
-                  onClick={() => handleClientClick(client.id)} 
-                  style={{ cursor: "pointer" }} 
+                  onClick={() => handleClientClick(client.id)}
+                  style={{ cursor: "pointer" }}
                 >
                   <strong>{client.firstName}</strong> (Last Name: {client.lastName}, Age: {client.age}, Gender: {client.gender})
                 </li>

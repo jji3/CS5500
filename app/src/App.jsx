@@ -24,7 +24,6 @@ function App() {
             <Route path="/results" element={<ResultPage />} />
             <Route path="/clients" element={<ClientSearch />} />
             <Route path="/client/:id" element={<DetailPage />} />
-
           </Routes>
         </main>
         <Footer />

@@ -15,7 +15,8 @@ import { handleSaveReport } from "./ReportGenerate";
 const ResultPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { formData, probability, interventions } = location.state || {
+    const { id, formData, probability, interventions } = location.state || {
+    id: "",
     formData: {},
     probability: 0,
     interventions: [],
@@ -26,7 +27,10 @@ const ResultPage = () => {
   };
 
   const handleBackToForm = () => {
-    navigate("/form", { state: { formData } });
+      if (id === '') navigate('/form', { state: { formData } });
+      else {
+          navigate(`/client/${id}`);
+      }
   };
 
   const formatIntervention = (intervention) => {

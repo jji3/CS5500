@@ -81,18 +81,14 @@ function Client() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // TODO: change url to use an env variable to make it easier to change when deploying in different environments
-      const response = await axios.post(
-        "http://ec2-34-219-155-200.us-west-2.compute.amazonaws.com:8000/clients/predictions",
-        selectedUser
-      );
+      const response = await axios.post('http://localhost:3001/api/work-score', selectedUser);
       console.log(response);
       console.log(response.data);
 
       const probability = response.data.baseline;
-
       const interventions = response.data.interventions;
-      navigate("/results", { state: { selectedUser, probability, interventions } });
+
+      navigate("/results", { state: { id, selectedUser, probability, interventions } });
     } catch (error) {
       console.error("Error submitting form:", error);
     }
@@ -130,7 +126,7 @@ function Client() {
             onChange={(e) => setSelectedUser({ ...selectedUser, lastName: e.target.value })}
             variant="outlined"
             fullWidth
-            InputLabelProps={{ shrink: true }} 
+            InputLabelProps={{ shrink: true }}
           />
         </Grid>
         <Grid item xs={12} sm={3}>
@@ -507,11 +503,11 @@ function Client() {
               Update
       </Button>
       </Grid>
-      {/* <Grid item xs={12} sm={3}>
+      <Grid item xs={12} sm={3}>
       <Button type="submit" variant="contained" color="secondary" onClick={handleSubmit} fullWidth>
-              Submit
+              See your score
       </Button>
-      </Grid> */}
+      </Grid>
     </Grid>
     </Box>
   );
