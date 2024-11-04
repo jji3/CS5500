@@ -11,36 +11,43 @@ function ClientSearch() {
   const [clients, setClients] = useState([]);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const query = useQuery().get("query");
+  const query = useQuery().get("query"); // Get the query parameter from the URL
 
   useEffect(() => {
     if (query) {
-      handleSearch(query);
+      handleSearch(query); // Call search with the first name
     }
   }, [query]);
 
-  const handleSearch = async (query) => {
-    try {
-      const response = await axios.get(`http://localhost:3001/api/clients/search`, {
-        params: { name: query }
-      });
-      setClients(response.data);
-      setError(null); 
-    } catch (err) {
-      setError("Error fetching clients. Please try again.");
-      console.error("Fetch error:", err);
-    }
-  };
+const handleSearch = async (query) => { // Use 'query' as the parameter name
+  console.log("Searching for clients with the following query:", query); // Log the search query
 
-  // Function to navigate to client details page
+  try {
+    const params = { firstName: query }; // Create params object
+    console.log("Request parameters:", params); // Log the parameters being sent
+
+    const response = await axios.get(`http://localhost:3001/api/clients/search`, {
+      params: params // Send 'name' for first name search to match the server API
+    });
+
+    setClients(response.data);
+    setError(null);
+    
+    console.log("Response data:", response.data); // Log the response data
+  } catch (err) {
+    setError("Error fetching clients. Please try again.");
+    console.error("Fetch error:", err); // Log the error details
+  }
+};
+
   const handleClientClick = (clientId) => {
-    navigate(`/client/${clientId}`);
+    navigate(`/client/${clientId}`); // Navigate to client detail page
   };
 
   return (
     <div className="centered-container">
       <div className="form-container">
-        <h2>Search Results for "{query}"</h2>
+        <h2>Search Results for First Name "{query}"</h2> {/* Clarified search context */}
         {error && <div className="error-message">{error}</div>}
         <div className="result-container">
           {clients.length > 0 ? (
@@ -52,7 +59,7 @@ function ClientSearch() {
                   onClick={() => handleClientClick(client.id)} 
                   style={{ cursor: "pointer" }} 
                 >
-                  <strong>{client.name}</strong> (Age: {client.age}, Gender: {client.gender})
+                  <strong>{client.firstName}</strong> (Last Name: {client.lastName}, Age: {client.age}, Gender: {client.gender})
                 </li>
               ))}
             </ul>
